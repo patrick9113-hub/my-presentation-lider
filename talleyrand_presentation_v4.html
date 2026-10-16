@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Талейран: психологія лідерства</title>
+<style>
+:root{--bg:#f7f0e1;--ink:#2b1b20;--mute:#6f5d54;--gold:#a07a1c;--wine:#7b1e34;--blue:#1f3a5f;--card:rgba(255,251,241,.86);--line:rgba(160,122,28,.38);--serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;--img:url("https://upload.wikimedia.org/wikipedia/commons/a/a6/Charles_Maurice_de_Talleyrand-P%C3%A9rigord_by_Fran%C3%A7ois_G%C3%A9rard%2C_1808.jpg")}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.55;background:radial-gradient(circle at 50% 0,#fffaf0,#efe2c4 85%)}
+body::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(45deg,rgba(160,122,28,.06) 0 1px,transparent 1px 34px),repeating-linear-gradient(-45deg,rgba(160,122,28,.06) 0 1px,transparent 1px 34px)}
+body::after{content:"";position:fixed;inset:12px;border:1px solid var(--gold);outline:1px solid var(--line);outline-offset:-8px;pointer-events:none;z-index:4}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+button:focus-visible,label:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+#bg{position:fixed;inset:0;z-index:0}
+.slide{position:fixed;inset:0;z-index:1;padding:6vh 8vw 12vh;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;transform:translateX(50px);transition:opacity .6s,transform .6s,visibility .6s;overflow-y:auto}
+.slide.on{opacity:1;visibility:visible;transform:none}
+h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:1.02;font-weight:400;color:var(--wine);letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.3vw,2.7rem);font-weight:400;color:var(--wine);line-height:1.12;margin-bottom:1.2vh}
+h2::after{content:"❦";display:block;font-size:1rem;color:var(--gold);margin-top:4px}
+h3{font-size:1.08rem;color:var(--blue);margin-bottom:4px}
+.lead{max-width:78ch;color:var(--mute);margin-bottom:16px}
+.mute{color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:14px 17px;box-shadow:0 6px 18px rgba(80,50,20,.08);transition:border-color .25s,transform .25s,background .25s}
+button.card:hover,.card.sel{border-color:var(--wine);background:#fff;transform:translateY(-2px)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.sw{display:grid;grid-template-columns:.8fr 1.2fr;gap:2.5vw;align-items:start}
+.sl{display:grid;gap:9px}
+.it b{display:block;font-weight:700}.it span{font-size:.88rem}
+.det{border-left:3px solid var(--wine);min-height:190px;font-size:.98rem;position:sticky;top:0}
+.det h3{font-size:1.35rem;color:var(--wine)}
+.btn{display:inline-block;margin-top:24px;padding:12px 30px;border:1px solid var(--wine);border-radius:999px;color:var(--wine);transition:.25s}
+.btn:hover{background:var(--wine);color:#fff}
+.two{display:grid;grid-template-columns:1.15fr .85fr;gap:5vw;align-items:center}
+.frame{display:block;position:relative;width:min(100%,300px);aspect-ratio:147/213;margin:auto;border:6px double var(--gold);background:#e8d9b5 var(--img) 50% 0/cover;box-shadow:0 18px 50px rgba(60,30,10,.35);cursor:pointer}
+.frame img{width:100%;height:100%;object-fit:cover;display:none}
+.crop{position:absolute;top:5vh;right:9vw;width:110px;height:110px;z-index:2;border-radius:50%;border:3px double var(--gold);background:var(--img) 50% 7%/290% no-repeat;box-shadow:0 8px 20px rgba(60,30,10,.3)}
+.hint{text-align:center;font-size:.78rem;margin-top:10px}
+.fc{perspective:900px;height:190px;padding:0;display:block}
+.fc>span{display:block;position:relative;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.fc.f>span{transform:rotateY(180deg)}
+.fc em{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:14px 17px;backface-visibility:hidden;border:1px solid var(--line);border-radius:3px;background:var(--card);font-style:normal;box-shadow:0 6px 18px rgba(80,50,20,.08)}
+.fc em small{color:var(--mute);margin-top:6px}
+.fc em+em{transform:rotateY(180deg);background:var(--wine);color:#fbf1dc;font-size:.9rem;line-height:1.45}
+.fc:hover em{border-color:var(--wine)}
+.bar{height:7px;background:rgba(43,27,32,.12);border-radius:9px;overflow:hidden;margin:5px 0 12px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--wine),var(--gold));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.slide.on .bar i{width:var(--v)}
+.q{display:flex;gap:12px;align-items:center;padding:10px 15px}
+.q::before{content:"";flex:none;width:17px;height:17px;border:1px solid var(--wine);border-radius:50%;transition:.25s}
+.q.on::before{background:var(--wine);box-shadow:0 0 0 3px rgba(123,30,52,.2)}
+.meter{height:11px;background:rgba(43,27,32,.12);border-radius:9px;overflow:hidden;margin:12px 0 8px}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width .6s}
+.tg{display:inline-flex;border:1px solid var(--wine);border-radius:999px;overflow:hidden;margin-bottom:14px}
+.tg button{padding:8px 22px}.tg button.on{background:var(--wine);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:16px}
+.stats b{display:block;font-size:2.3rem;line-height:1;color:var(--wine);font-weight:400}
+.quote{margin:12px 0;padding-left:16px;border-left:3px solid var(--gold);font-style:italic;color:var(--blue);max-width:70ch}
+nav{position:fixed;z-index:5;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;padding:20px 6vw;background:linear-gradient(transparent,rgba(247,240,225,.95) 60%)}
+nav button{padding:7px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);transition:.25s}
+nav button:hover{border-color:var(--wine);color:var(--wine)}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:60vw}
+.dots button{width:10px;height:10px;padding:0;border-radius:50%;border:1px solid var(--wine)}
+.dots button.on{background:var(--wine)}
+@media(max-width:820px){.sw,.two{grid-template-columns:1fr}.det{position:static}.frame{width:200px}.crop{width:90px;height:90px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.dd{display:flex;gap:6px;margin-top:8px}.dot{width:32px;height:32px;padding:0;border-radius:50%;border:1px solid var(--wine);text-align:center}.dot.on{background:var(--wine);color:#fff}.dot.tl{box-shadow:0 0 0 3px var(--gold)}
+.net{position:relative;width:100%;max-width:470px;aspect-ratio:1;margin:auto}
+.net svg{position:absolute;inset:0;width:100%;height:100%}
+.net line{stroke:var(--line);stroke-width:1.5;vector-effect:non-scaling-stroke;transition:.3s}
+.net line.on{stroke:var(--wine);stroke-width:3.5}
+.nc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:104px;height:104px;border-radius:50%;border:3px double var(--gold);background:var(--img) 50% 7%/290% no-repeat;box-shadow:0 8px 24px rgba(60,30,10,.35)}
+.nb{position:absolute;transform:translate(-50%,-50%);width:118px;padding:8px 9px;font-size:.82rem;line-height:1.25;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:3px;transition:.25s}
+.nb:hover,.nb.sel{background:#fff;border-color:var(--wine);color:var(--wine);transform:translate(-50%,-50%) scale(1.07)}
+@media(max-width:820px){.nb{width:96px;font-size:.74rem}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="deck"></div>
+<nav><button onclick="go(cur-1)">Назад</button><div class="dots" id="dots"></div><button onclick="go(cur+1)">Далі</button></nav>
+<input type="file" id="file" accept="image/*" hidden>
+
+<script>
+const IMG="https://upload.wikimedia.org/wikipedia/commons/a/a6/Charles_Maurice_de_Talleyrand-P%C3%A9rigord_by_Fran%C3%A7ois_G%C3%A9rard%2C_1808.jpg";
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const SL=[];const add=(h,lead,fn)=>SL.push({h,lead,fn});
+const medal=()=>'<div class="crop" role="img" aria-label="Талейран"></div>';
+
+/* components */
+function sel(list){const w=el('div','sw'),l=el('div','sl'),d=el('div','card det');
+ list.forEach(it=>{const b=el('button','card it',`<b>${it[0]}</b><span class="mute">${it[1]||''}</span>`);
+  b.onclick=()=>{[...l.children].forEach(c=>c.classList.remove('sel'));b.classList.add('sel');d.innerHTML=`<h3>${it[0]}</h3><p>${it[2]}</p>`};l.append(b)});
+ w.append(l,d);l.children[0].click();return w}
+function flips(list){const g=el('div','grid');list.forEach(([a,b])=>{const x=el('button','fc',`<span><em><h3>${a}</h3><small>Натисніть, щоб розгорнути</small></em><em>${b}</em></span>`);x.onclick=()=>x.classList.toggle('f');g.append(x)});return g}
+function cards(list){const g=el('div','grid');list.forEach(([a,b])=>g.append(el('div','card',`<h3>${a}</h3><p style="font-size:.95rem">${b}</p>`)));return g}
+function score(list,max,vd,title,note){const w=el('div','sw'),l=el('div','sl'),d=el('div','card det'),m=el('div','meter','<i></i>'),v=el('p');let s=0;
+ list.forEach(([t,n])=>{const b=el('button','card q',t+` <span class="mute">(${n>0?'+':''}${n})</span>`);b.onclick=()=>{b.classList.toggle('on');s+=b.classList.contains('on')?n:-n;u()};l.append(b)});
+ function u(){const c=Math.max(0,Math.min(max,s));m.firstChild.style.width=c/max*100+'%';v.innerHTML=`<b>${c} із ${max}.</b> ${vd[Math.min(vd.length-1,Math.floor(c/max*vd.length))]}`}
+ d.append(el('h3',0,title),m,v,el('p','mute',note||''));u();w.append(l,d);return w}
+function two(a,b){const w=el('div'),t=el('div','tg'),g=el('div','grid');
+ [a,b].forEach((x,i)=>{const bt=el('button',i?'':'on',x[0]);bt.onclick=()=>{[...t.children].forEach(c=>c.classList.remove('on'));bt.classList.add('on');draw(i)};t.append(bt)});
+ const draw=i=>{g.innerHTML=[a,b][i].slice(1).map(x=>`<div class="card"><h3>${x[0]}</h3><p style="font-size:.95rem">${x[1]}</p></div>`).join('')};draw(0);w.append(t,g);return w}
+function stack(...n){const w=el('div');n.forEach(x=>w.append(x));return w}
+const stats=l=>el('div','stats',l.map(([n,t])=>`<div class="card"><b>${n}</b><span class="mute">${t}</span></div>`).join(''));
+
+function vs(list){const w=el('div','sw'),l=el('div','sl'),d=el('div','dv');
+ list.forEach(it=>{const b=el('button','card it',`<b>${it[0]}</b>`);b.onclick=()=>{[...l.children].forEach(c=>c.classList.remove('sel'));b.classList.add('sel');
+  d.innerHTML=`<div class="grid"><div class="card"><h3>Талейран</h3><p style="font-size:.95rem">${it[1]}</p><div class="bar"><i style="--v:${it[3]}%"></i></div></div><div class="card"><h3 style="color:var(--wine)">Наполеон</h3><p style="font-size:.95rem">${it[2]}</p><div class="bar"><i style="--v:${it[4]}%"></i></div></div></div><p class="mute" style="font-size:.82rem;margin-top:8px">Умовна шкала: ${it[5]}</p>`};l.append(b)});
+ w.append(l,d);l.children[0].click();return w}
+function slider(st){const w=el('div','card'),r=el('input'),lab=el('div','mute'),box=el('div'),m=el('div','meter','<i></i>');
+ r.type='range';r.min=0;r.max=st.length-1;r.value=0;r.style.cssText='width:100%;accent-color:#7b1e34';r.setAttribute('aria-label','Етап переговорів');
+ const u=()=>{const s=st[r.value];lab.textContent=s[0];box.innerHTML=`<h3 style="font-size:1.35rem;color:var(--wine)">${s[1]}</h3><p>${s[2]}</p>`;m.firstChild.style.width=s[3]+'%'};
+ r.oninput=u;u();w.append(lab,r,box,el('p','mute','Позиція Франції за столом переговорів'),m);return w}
+function net(list){const w=el('div','sw'),n=el('div','net'),d=el('div','card det'),NS='http://www.w3.org/2000/svg',svg=document.createElementNS(NS,'svg'),ls=[],bs=[];
+ w.style.gridTemplateColumns='1fr 1fr';svg.setAttribute('viewBox','0 0 100 100');svg.setAttribute('preserveAspectRatio','none');n.append(svg,el('div','nc'));
+ list.forEach((it,i)=>{const a=-Math.PI/2+i*2*Math.PI/list.length,x=50+37*Math.cos(a),y=50+37*Math.sin(a),ln=document.createElementNS(NS,'line');
+  [50,50,x,y].forEach((v,j)=>ln.setAttribute(['x1','y1','x2','y2'][j],v));svg.append(ln);
+  const b=el('button','nb',it[0]);b.style.left=x+'%';b.style.top=y+'%';
+  b.onclick=()=>{ls.forEach(l=>l.classList.remove('on'));bs.forEach(q=>q.classList.remove('sel'));ln.classList.add('on');b.classList.add('sel');d.innerHTML=`<h3>${it[0]}</h3><p>${it[2]}</p>`};
+  ls.push(ln);bs.push(b);n.append(b)});
+ w.append(n,d);bs[0].click();return w}
+function rate(list){const w=el('div','sw'),l=el('div','sl'),d=el('div','card det'),v=list.map(()=>0);
+ list.forEach((it,i)=>{const r=el('div','card',`<b>${it[0]}</b> <span class="mute">${it[1]}</span><div class="dd"></div>`),dd=r.querySelector('.dd');
+  for(let k=1;k<=5;k++){const b=el('button','dot'+(k===it[3]?' tl':''),k);b.onclick=()=>{v[i]=k;[...dd.children].forEach((c,j)=>c.classList.toggle('on',j<k));u()};dd.append(b)}l.append(r)});
+ function u(){const r=v.map((x,i)=>[x,i]).filter(x=>x[0]);if(!r.length){d.innerHTML='<h3>Оцініть себе</h3><p>Натискайте на цифри від 1 до 5. Після оцінки з\'явиться ваша зона росту й вправа.</p>';return}
+  const [x,i]=r.slice().sort((a,b)=>a[0]-b[0])[0];d.innerHTML=`<h3>Ваша зона росту: ${list[i][0]}</h3><p>${list[i][2]}</p><p class="mute">Середній рівень: ${(r.reduce((a,b)=>a+b[0],0)/r.length).toFixed(1)} із 5</p>`}
+ u();w.append(l,d);return w}
+
+/* 3 */ add('Формування особистості','Психологічний портрет, частина 1. Натискайте на етапи, щоб побачити, як рани дитинства стали його силою.',()=>stack(el('div',0,medal()),sel([
+['Народження і вада стопи','1754, Париж','Старший син у знатній родині. Через вроджену ваду ноги він ходив з тростиною й кульгав усе життя. Для сина військового роду, якому судилася шпага, це було приниженням, яке він носив у собі.'],
+['Позбавлення спадку','1770','Родинна рада віддала право старшого сина молодшому брату, а Шарля-Моріса спрямували до церкви. Він не обирав духовного шляху, і це відчуття чужої волі, найімовірніше, навчило його ховати справжні бажання за маскою спокою.'],
+['Самотнє дитинство','Годувальниця й прабабуся','Перші роки він прожив поза батьківським домом. Така рання емоційна відстороненість часто формує людину, яка вчиться покладатися на себе й не показує почуттів.'],
+['Семінарія Сен-Сюльпіс','1770-ті','Дисципліна, латина, богослов\'я і придворні манери виховали майстра слова й спостереження. Він навчився читати людей так, як читають книгу, бо від цього залежало його майбутнє.'],
+['Психобіографічне прочитання','Інтерпретація','Втрата місця в родині й тілесна вада могли викликати компенсацію: замість сили кулака він обрав силу розуму. Це гіпотеза, а не діагноз, але вона добре пояснює його владу над собою й людьми.']])));
+
+/* 5 */ add('Емоційний інтелект: майстерність самоконтролю','За моделлю Деніела Гоулмена. Талейран був майстром чотирьох із п\'яти компонентів.',()=>flips([
+['Самосвідомість','Він ясно бачив власні слабкості й обмеження: вада ноги, походження, репутацію. Не вдавав того, чого не мав, і використовував власний образ.'],
+['Саморегуляція','Знаменитий вираз спокою: його невиразне обличчя стало легендою. За легендою, навіть грубий жарт чи образа не змусили б його змінити вираз обличчя.'],
+['Мотивація','Ціль була стабільною: безпека і вплив Франції. Решта (титули, гроші, режими) були засобами.'],
+['Емпатія','Не співчуття, а точне розуміння чужих інтересів. Він знав, чого бажає цар, чого боїться імператор, на що розраховує посол, і ставив запитання відповідно.'],
+['Соціальні навички','Салон, вечері, листування, жарти. Його кухар Карем і щедрий стіл були дипломатичним інструментом: за обідом домовлялися швидше, ніж у кабінетах.']]));
+
+/* 6 */ add('Джерела влади за Френчем і Рейвеном','Він не мав армії, але мав п\'ять інших джерел впливу. Оберіть джерело.',()=>sel([
+['Експертна влада','Знання','Ніхто в Європі не знав двори, родини й договори так, як він. Знання робило його незамінним для будь-якого режиму.'],
+['Інформаційна влада','Хто знає, той веде','Його інформаторами були міністри, дами, банкіри. Він платив за відомості й сам зливав потрібні відомості у потрібний час.'],
+['Референтна влада','Образ у головах людей','«Для мене немає значення, що про мене говорять, важливо — що про мене думають». Ця формула точно описує референтну владу: вона тримається не на чутках і плітках, а на образі, який люди складають самі. Талейран свідомо творив цей образ: незворушний, дотепний, проникливий. Його поважали, наслідували й хотіли бути поруч, незалежно від того, що казали про нього в салонах.'],
+['Легітимна влада','Посада й титул','Єпископ, міністр, князь Беневентський, голова уряду. Посади давали формальне право говорити від імені держави.'],
+['Влада винагороди й примусу','Гроші й тиск','Допускав хабарі й вигідні угоди, а також використовував компромат. Це була його тіньова сторона, яка шкодила довірі.']]));
+
+/* 6b */ add('Сірий кардинал: влада без трону','«Сірий кардинал» (éminence grise) — радник, який впливає на владу без гучного титулу. Натискайте на вузли навколо Талейрана, щоб побачити, з чого складалася його прихована влада.',()=>net([
+['Влада без трону','Радник, а не володар','Він ніколи не прагнув корони. Служив Наполеону, Людовіку XVIII і Луї-Філіппу, а вплив мав через довіру тих, хто носив корону.'],
+['Інформація як валюта','Знає більше за всіх','Збирав відомості від міністрів, дам, банкірів і послів та віддавав їх дозовано, у потрібний момент. Хто володіє інформацією, той керує порадою.'],
+['Один сильний патрон','Вплив через довіру','Поки правитель слухав, вплив зростав. Коли Наполеон перестав прислухатися, у 1807-му Талейран пішов, а не залишився виконавцем.'],
+['Невидимі домовленості','Кулуари замість трибуни','Таємний союз 3 січня 1815 року, домовленості за обідами й у салонах. Результат видно всім, а механізм лишається прихованим.'],
+['Ціна ролі','Невдячність і недовіра','Відповідальність розмита, подяки мало, репутація «зрадника» неминуча. Такий вплив триває лише доти, доки радник корисний.'],
+['Урок для сучасного лідера','Прозорість і межі','Радник, керівник середньої ланки чи консультант можуть мати великий вплив. Але без відкритих цілей і етичних меж така роль перетворюється на інтригу.']]));
+
+/* 7 */ add('Профіль лідера в одному погляді','Психологічний портрет, підсумок. Висновок якісний: на основі біографічних даних, а не клінічних тестів.',()=>cards([
+['Провідні мотиви','Дуже висока потреба у владі, висока потреба в досягненнях, низька потреба в приналежності. Він служив державі, а не людям.'],
+['Ключові риси','Самоконтроль, адаптивність, стратегічне мислення, холодний раціоналізм, закритість. Реалізм без ілюзій щодо людей.'],
+['Тип лідерства','Лідер-радник «за лаштунками» і транзакційний дипломат: обмінює вигоди, а не надихає масами. Його сила в переговорах, а не в натовпі.'],
+['Зони ризику','Цинізм, корупція, відсутність довіри до себе. Люди користувалися ним, але рідко любили чи вважали надійним.']]));
+
+/* 9 */ add('Коли світ розсипається','Контекст: після 1789 року Франція втратила короля, станову систему й звичні правила життя. За теорією невизначеності Майкла Хогга, коли людей охоплює розгубленість, вони шукають чітку спільну ідентичність і лідера, який пропонує зрозумілий вихід. Саме з такого запиту зростає вплив Талейрана.',()=>stack(cards([
+['Втрата','Старий порядок, на якому трималися держава й суспільство, зруйнувався за кілька років: монархія, станова система, Церква.'],
+['Загроза','Революційні війни, терор, а потім наполеонівські війни обернули країну на поле битви й виснажили людей.'],
+['Порожнеча','Жоден режим не мав стабільної відповіді, що робити далі. Хто вмів говорити мовою порядку, отримував довіру.'],['Відповідь Талейрана','Він запропонував простий образ: Франція понад усе, порядок і рівновага замість нескінченної війни. Люди втомилися від хаосу, тому йшли за тим, хто обіцяв стабільність.']]),el('p','quote','«Мова дана людині, щоб приховувати думки». Фраза йому приписується, але вона добре описує його стиль: у хаосі виграє той, хто мовчить доти, поки його слова мають вагу.')));
+
+/* 9b */ add('Кризовий лідер: дипломат у вирі','Чи був Талейран кризовим лідером? Так, але не командиром на полі бою, а кризовим дипломатом. За Арьєном Бойном і Полом ’т Гартом кризовий лідер виконує п\'ять завдань. Натискайте на картки.',()=>flips([
+['1. Осмислення ситуації','Він розпізнав крах Наполеона раніше за інших: ще у 1807-му побачив, що війни виснажують Францію, а в 1814-му першим оцінив, що імперія приречена.'],
+['2. Рішення й координація','Навесні 1814 року очолив Тимчасовий уряд, а Сенат за його керівництва оголосив Наполеона скинутим. Він швидко об\'єднав еліти довкола одного плану.'],
+['3. Створення сенсу','Запропонував прийнятну історію: повернення Бурбонів як відновлення законного порядку, а не капітуляція. Люди в кризі потребують пояснення того, що відбувається.'],
+['4. Завершення кризи','Віденський конгрес і перехід до Липневої монархії у 1830 році він перетворив із небезпечних моментів на стабільні домовленості.'],
+['5. Навчання й відповідальність','Залишив «Мемуари» й практику політики рівноваги. Але й питання: чи був він кризовим рятівником, чи вправним пристосуванцем? Відповідь залежить від того, кого запитати.']]));
+
+/* 10 */ add('Кейс: Віденський конгрес 1814–1815','Він приїхав як представник переможеної країни, а поїхав з рівним місцем за столом. Пересуньте повзунок, щоб побачити хід переговорів.',()=>stack(slider([
+['Вересень 1814','Франція за дверима','Чотири переможці (Австрія, Британія, Пруссія, Росія) вирішують усе між собою. Франція для них лише об\'єкт рішень, а не партнер.',10],
+['Жовтень 1814','Принцип легітимності','Талейран заявив, що порядок можливий лише з визнаними династіями. Так Франція з винуватиці стала захисницею загального правила.',35],
+['Листопад–грудень 1814','Клин у коаліції','Росія й Пруссія прагнули Польщі та Саксонії, і Австрія з Британією занепокоїлися. Талейран відчув розкол між переможцями й почав грати на ньому.',60],
+['3 січня 1815','Таємний союз','Франція, Британія й Австрія таємно домовилися протидіяти планам Росії й Пруссії. Переможена країна опинилася серед арбітрів.',85],
+['Червень 1815','Підсумок','Підписано Заключний акт конгресу. Франція зберегла статус великої держави й повернулася до європейської системи рівноваги.',95]]),stats([['~9 міс.','тривав конгрес'],['3.01.1815','таємний союз'],['5','великих держав «концерту»']])));
+
+/* 11 */ add('Кредит довіри, а потім зміни','За Едвіном Голландером: група дозволяє лідеру відходити від норм, лише коли він накопичив «кредит». Додавайте й витрачайте.',()=>score([
+['Знання Старого порядку й революції',20],['Мережа зв\'язків в усій Європі',20],['Репутація блискучого переговорника',20],['Стійка мета: безпека Франції',20],['Повернення Франції до кола великих держав',20],['Зрада попереднього патрона',-25],['Хабарі й корупційні скандали',-20]],100,['Кредит порожній: довіри ще немає.','Довіра зростає, але ще крихка.','Реформатор з капіталом: можна ризикувати.','Максимум довіри: можна змінювати правила гри.'],'Кредит довіри Талейрана','Парадокс: навіть його зрадницький імідж не скасував кредит довіри повністю.'));
+
+/* 12 */ add('Ціна гнучкості','Перемикайте погляд: ті самі риси можуть бути силою або слабкістю.',()=>two(['Сильні сторони',['Адаптивність','Змінював союзників без розриву з метою. Режими падали, а його значення зростало.'],['Передбачення','Бачив наслідки рішень на роки вперед, а не на місяць.'],['Самовладання','Не піддавався паніці, образам і лестощам.'],['Мистецтво переговорів','Умів зробити так, щоб інший погодився за власним бажанням.']],['Слабкі сторони',['Недовіра оточення','Усі розуміли: він служить передусім собі й Франції, тому не надто довіряли.'],['Корупція','Брав гроші від іноземних дворів, що шкодило репутації й моральній автономії.'],['Емоційна самотність','Майже не мав близьких друзів, лише союзників і слухачів.'],['Репутація зрадника','Наполеон прилюдно звинувачував його в зраді, а історики досі сперечаються про мотиви.']]));
+
+/* 12b */ add('Талейран і Наполеон: дві моделі лідерства','Порівняння за якостями лідера. Оберіть якість ліворуч. Шкали умовні, це якісна оцінка автора за біографічними даними.',()=>vs([
+['Джерело влади','Експертна й інформаційна: знання дворів, мережа зв\'язків, репутація радника. Влада йшла через довіру тих, хто мав формальну владу.','Харизма, військові перемоги й титул імператора. Влада трималася на особистому успіху й вірності армії.',70,90,'сила джерела влади у «свій» час'],
+['Стиль лідерства','Радник за лаштунками, транзакційний дипломат: обмінює вигоди й будує коаліції. Не шукає публічної слави.','Публічний, директивний і трансформаційний за Бассом: надихає мільйони, змінює закони й державний устрій.',55,95,'здатність змінювати людей і систему'],
+['Ставлення до ризику','Обережний і багатоходовий: ризикує лише після розрахунку й тримає запасні варіанти.','Високе: ставка на рішучий удар. Успіх Аустерліца й катастрофа 1812-го мають спільний корінь.',45,95,'схильність до ризику'],
+['Комунікація','Мовчання, натяк, дотепне слівце, салонна розмова. Говорить мало, щоб слова мали вагу.','Накази, прокламації й гасла для армії та народу. Говорить мовою мас.',88,90,'майстерність у «своєму жанрі»'],
+['Мета й цінності','Рівновага в Європі й безпека Франції. Режими були засобами, а не метою.','Слава, імперія й ідея «Великої нації». З часом мета злилася з особистою величчю.',85,40,'послідовність мети заради держави'],
+['Результат','Франція пережила поразку як велика держава, а сам він зберіг вплив до глибокої старості.','Піднісся на вершину, але впав через перенапруження: 1812 рік, 1814-й і «Сто днів».',85,50,'довговічність результату']]));
+
+/* 13 */ add('Спадщина і спір про оцінку','Геній дипломатії чи майстер інтриги? Історики досі сперечаються, і саме цей спір показує, чого варто вчитися в Талейрана, а чого ні.',()=>stack(el('div',0,medal()),cards([
+['Дипломатична школа','Його ім\'я стало синонімом тонкої дипломатії. Віденський порядок, до якого він доклався, дав Європі відносний мир на десятиліття, аж до Кримської війни.'],
+['Мемуари','Його «Мемуари» вийшли після смерті, у 1891–1892 роках. Вони й досі залишаються джерелом і доказом для його захисників та критиків.'],
+['Критики','Шатобріан пояснював його кар\'єру пороком, що спирається на злочин. Наполеон бачив у ньому небезпечного інтригана.'],
+['Захисники','Історики на кшталт Орьє й Варесквіля бачать у ньому державного мислителя, який довів, що вірність Франції важливіша за вірність правителям.']])));
+
+/* 14 */ add('Шість лідерських уроків','Практичні рекомендації, частина 1. Натискайте на картку, щоб побачити, як формувати навичку.',()=>flips([
+['1. Слухайте більше, ніж говорите','Перед відповіддю робіть паузу на три секунди. Спочатку запитання, потім позиція. Так ви збираєте інформацію й не обмежуєте себе зайвими обіцянками.'],
+['2. Будуйте довіру наперед','Раз на тиждень зробіть комусь корисну послугу без вимоги навзаєм. Довіра накопичується роками, а потрібна в кризі.'],
+['3. Знайте інтереси всіх сторін','Перед перемовинами випишіть по три інтереси кожної сторони. Шукайте перетини, а не слабкі місця.'],
+['4. Тримайте ціль, міняйте засоби','Визначте одну нескасовну мету. Усе інше (метод, союзник, формулювання) повинно бути гнучким.'],
+['5. Охолоджуйте емоції','Гострі рішення відкладайте на добу. Публічно говоріть рівно, лише у приватному колі виражайте обурення.'],
+['6. Ставте межу заздалегідь','Визначте, що ви ніколи не зробите, до того, як тиск виросте. Тіньова сторона Талейрана вчить: гнучкість без меж руйнує довіру.']]));
+
+/* 15 */ add('Професійні навички, що стоять за лідерством','Практичні рекомендації, частина 2. Оцініть себе від 1 до 5 за кожною навичкою. Золоте кільце показує орієнтовний рівень Талейрана.',()=>rate([
+['Переговори','Стратегія win-win','Готуйте три варіанти угоди: ідеальний, прийнятний і мінімальний. Репетируйте відповіді на найгірші заперечення.',5],
+['Нетворкінг','Мережа до потреби','Щомісяця підтримуйте контакт із п\'ятьма людьми поза проєктами. Питайте, чим можна допомогти, а не що вони можуть дати.',5],
+['Аналіз інформації','Читання контексту','Перед зустріччю дізнайтеся про інтереси, тиск і обмеження співрозмовника. Записуйте припущення й перевіряйте їх.',5],
+['Письмо й мова','Точне слово','Тренуйтеся викладати позицію у трьох реченнях. Талейран відомий коротким і дотепним слівцем, яке запам\'ятовують.',5],
+['Самоконтроль','Спокій у кризі','Практикуйте дихання, паузу й нейтральний тон. Фіксуйте тригери, на які реагуєте надто емоційно.',5],
+['Адаптивність','Гнучкість методів','Щокварталу переглядайте плани й відмовляйтеся від того, що не працює. Мета тримається, спосіб змінюється.',5]]));
+
+/* 18 */ add('Перевірте себе','Позначте, що про вас правда, і дізнайтеся свій індекс Талейрана.',()=>score([
+['Перед розмовою я з\'ясовую, чого хоче інша сторона',1],['Я вмію мовчати, коли емоції зашкалюють',1],['Маю план Б і план В для важливих справ',1],['Будую стосунки заздалегідь, а не коли потрібна допомога',1],['Знаю, де моя етична межа',1]],5,['Почніть із паузи й питань.','Є база, додайте планування.','Непогано: ви вже мислите стратегічно.','Дуже сильно: шліфуйте деталі.','Майже дипломат вікової школи.'],'Ваш індекс Талейрана','Головне: стратегічність без чесності не виграє надовго.'));
+
+/* 19 */ add('Висновок','Люди довіряли йому не випадково: цю довіру створили особистість, обставини й дії.',()=>stack(el('div',0,medal()),cards([
+['Психологічний портрет','Рана дитинства перетворена на силу розуму. Висока потреба у владі й досягненнях, самоконтроль, раціоналізм, закритість. За стилем «сірий кардинал» і кризовий дипломат.'],
+['Історія успіху','Криза створила запит, вміння дало кредит довіри, а Віденський конгрес довів майстерність. Ціною стала репутація й самотність.'],
+['Рекомендації','Слухайте, будуйте довіру наперед, тримайте мету, охолоджуйте емоції. Ставте етичну межу до того, як тиск зросте.']])));
+
+/* 20 */ add('Джерела','Для подальшого читання.',()=>el('div','card',`<p style="font-size:.9rem;line-height:1.7">1. Bass B. M. Leadership and Performance Beyond Expectations. 1985.<br>2. Boin A., 't Hart P., Stern E., Sundelius B. The Politics of Crisis Management. 2005.<br>3. Cooper D. Talleyrand. 1932.<br>4. French J., Raven B. The bases of social power. 1959.<br>5. Goleman D. Emotional Intelligence. 1995.<br>6. Hogg M. A. Uncertainty–identity theory. 2007.<br>7. Hollander E. P. Conformity, status, and idiosyncrasy credit // Psychological Review. 1958.<br>8. Kissinger H. A World Restored. 1957.<br>9. McClelland D. C. Power: The Inner Experience. 1975.<br>10. Waresquiel E. de. Talleyrand, le prince immobile. 2003.<br>11. Zamoyski A. Rites of Peace: The Fall of Napoleon and the Congress of Vienna. 2007.<br>12. Mémoires du prince de Talleyrand. 1891–1892.</p>`));
+
+/* build deck */
+const S=[],deck=document.getElementById('deck');
+const tp=el('section','slide',`<div class="two"><div><p class="mute">Шарль-Моріс де Талейран-Перигор, 1754–1838</p><h1>Талейран: психологія лідерства</h1><p class="lead" style="margin-top:16px;font-size:1.15rem">Як кульгавий єпископ став дипломатом, що пережив шість режимів і повернув переможеній Франції місце за столом сильних.</p><button class="btn" onclick="go(1)">Розпочати</button></div><div><label class="frame" for="file" title="Клікніть, щоб замінити зображення"><img alt="Портрет Талейрана пензля Франсуа Жерара, 1808" src="${IMG}" onload="this.style.display='block'"></label><p class="mute hint">Франсуа Жерар, 1808. Metropolitan Museum of Art</p></div></div>`);
+deck.append(tp);S.push(tp);
+SL.forEach((s,i)=>{const sec=el('section','slide');sec.append(el('p','mute',`${i+2} / ${SL.length+1}`),el('h2',0,s.h),el('p','lead',s.lead),s.fn());deck.append(sec);S.push(sec)});
+let cur=0,th=42;const hues=[42,345,215];
+function go(n){cur=Math.max(0,Math.min(S.length-1,n));S.forEach((s,i)=>s.classList.toggle('on',i===cur));[...document.querySelectorAll('.dots button')].forEach((d,i)=>d.classList.toggle('on',i===cur));th=hues[cur%3]}
+S.forEach((_,i)=>{const b=el('button');b.setAttribute('aria-label','Слайд '+(i+1));b.onclick=()=>go(i);document.getElementById('dots').append(b)});
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown'].includes(e.key))go(cur+1);if(['ArrowLeft','PageUp'].includes(e.key))go(cur-1);if(e.key==='Home')go(0);if(e.key==='End')go(S.length-1)});
+let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>70)go(cur+(d<0?1:-1))});
+document.getElementById('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{document.documentElement.style.setProperty('--img',`url(${r.result})`);tp.querySelector('img').src=r.result};r.readAsDataURL(f)};
+
+/* interactive background */
+const cv=document.getElementById('bg'),cx=cv.getContext('2d'),still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let W,H,P=[],R=[],m={x:-999,y:-999},hue=42;
+function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;P=Array.from({length:Math.min(110,W*H/14000|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*1.8+.8}))}
+addEventListener('resize',size);size();
+addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY});
+addEventListener('pointerdown',e=>{if(e.target.closest('button,label,nav'))return;R.push({x:e.clientX,y:e.clientY,r:0});P.forEach(p=>{const dx=p.x-e.clientX,dy=p.y-e.clientY,d=Math.hypot(dx,dy)||1;if(d<320){p.vx+=dx/d*(320-d)/60;p.vy+=dy/d*(320-d)/60}})});
+function tick(){hue+=(th-hue)*.03;cx.clearRect(0,0,W,H);
+ const g=cx.createRadialGradient(m.x,m.y,0,m.x,m.y,360);g.addColorStop(0,`hsla(${hue},75%,60%,.22)`);g.addColorStop(1,'transparent');cx.fillStyle=g;cx.fillRect(0,0,W,H);
+ for(const p of P){const dx=p.x-m.x,dy=p.y-m.y,d=Math.hypot(dx,dy)||1;if(d<150){p.vx+=dx/d*.06;p.vy+=dy/d*.06}
+  p.vx*=.985;p.vy*=.985;if(Math.abs(p.vx)+Math.abs(p.vy)<.2){p.vx+=(Math.random()-.5)*.03;p.vy+=(Math.random()-.5)*.03}
+  p.x=(p.x+p.vx+W)%W;p.y=(p.y+p.vy+H)%H}
+ for(let i=0;i<P.length;i++){const a=P[i];
+  for(let j=i+1;j<P.length;j++){const b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<125){cx.strokeStyle=`hsla(${hue},55%,38%,${(1-d/125)*.28})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}
+  const dm=Math.hypot(a.x-m.x,a.y-m.y);if(dm<210){cx.strokeStyle=`hsla(${hue},65%,35%,${(1-dm/210)*.5})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(m.x,m.y);cx.stroke()}
+  cx.fillStyle=`hsla(${hue},60%,38%,.7)`;cx.beginPath();cx.arc(a.x,a.y,a.r,0,7);cx.fill()}
+ R=R.filter(r=>r.r<400);R.forEach(r=>{r.r+=7;cx.strokeStyle=`hsla(${hue},65%,38%,${1-r.r/400})`;cx.beginPath();cx.arc(r.x,r.y,r.r,0,7);cx.stroke()});
+ if(!still)requestAnimationFrame(tick)}
+tick();go(0);
+</script>
+</body>
+</html>
